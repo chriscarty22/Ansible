@@ -1,0 +1,17 @@
+
+  - name: Install Docker Dependecy
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+
+  - name: Add Docker DPG Key
+    shell:
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+  - name: Add Docker Repository to apt
+    shell:
+      sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"

@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: Deny Everything and enable UFW
+    community.general.ufw:
+      state: enabled
+      policy: deny
+
+  - name: Set loggin
+    community.general.ufw:
+      logging: 'on'
+
+
+  - community.general.ufw:
+      rule: reject
+      port: auth
+      log: yes
+
+  - community.general.ufw:
+      rule: limit
+      port: ssh
+      proto: tcp
+
+  - community.general.ufw:
+      rule: allow
+      name: OpenSSH
