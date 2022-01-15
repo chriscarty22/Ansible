@@ -1,0 +1,19 @@
+  - name: Remove Impish Release
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu/dists impish release
+      state: absent 
+
+  - name: Remove Impish Stable
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu impish stable
+      state: absent
+ 
+  - name: Remove Docker Ubuntu
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu
+      state: absent
+
+  - name: Remove Bionic Stable
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: absent
