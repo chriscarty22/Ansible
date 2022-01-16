@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: true
+  vars:
+    create_containers: 1
+    container_name: portainer_agent
+    docker_image: portainer_agent
+
+
+  tasks: 
+    - name: Pull Docker Image
+      docker_image:
+        name: "{{ docker_image }}"
+        source: pull
+
+    - name: Create Docker Container
+      docker_container:
+        name: "{{ container_name }}{{ item }}"
+        image: "{{ docker_image }}"
+        state: started
+        port: 9001:9001
+      with_sequence: count={{ create_containers }}
+
+
