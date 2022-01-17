@@ -1,0 +1,46 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: Enable UFW
+    community.general.ufw:
+      state: enabled
+
+  - name: Set loggin
+    community.general.ufw:
+      logging: 'on'
+
+  - name: Limit SSH
+    community.general.ufw:
+      rule: limit
+      port: ssh
+      proto: tcp
+
+  - name: Allow SSH
+    community.general.ufw:
+      rule: allow
+      port: 22
+      proto: tcp
+
+  - name: Allow DNS TCP
+    community.general.ufw:
+      rule: allow
+      port: 53
+      proto: tcp
+
+  - name: Allow DNC UDP
+    community.general.ufw:
+      rule: allow
+      port: 53
+      proto: udp
+
+  - name: Allow 443 TCP
+    community.general.ufw:
+      rule: allow
+      port: 443
+      proto: tcp
+
+  - name: Reload UFW
+    community.general.ufw:
+      state: reloaded
