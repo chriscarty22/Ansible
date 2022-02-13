@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: Update Repository Index
+    apt: 
+      update_cache: yes
+  
+  - name: Install Packages
+    apt:
+      name:
+        - ufw
+        - net-tools
+        - nfs-common

@@ -1,20 +1,8 @@
----
+ ---
 - hosts: all
   become: true
   tasks:
   
-  - name: Update Repository Index
-    apt: 
-      update_cache: yes
-  
-  - name: Install Packages
-    apt:
-      name:
-        - ufw
-        - net-tools
-        - nfs-common
-
-
   - name: Mount NTFS VM-Storage Drive
     ansible.posix.mount:
       src: 10.50.30.3:/mnt/Data/vm-storage

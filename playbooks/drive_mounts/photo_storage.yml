@@ -1,0 +1,20 @@
+ ---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: Mount NTFS Photo-Storage Drive
+    ansible.posix.mount:
+      src: 10.50.30.3:/mnt/Data/photos
+      path: /mnt/vm_storage
+      opts: rw,sync,hard,intr
+      state: mounted
+      fstype: nfs
+
+
+  - name: Create vm_storage Directory
+    file:
+      path: /mnt/photos
+      state: directory
+
+
