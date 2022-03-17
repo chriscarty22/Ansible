@@ -13,3 +13,21 @@
         - ufw
         - net-tools
         - nfs-common
+
+  - name: Enable UFW
+    community.general.ufw:
+      state: enabled
+
+  - name: Set Loggin
+    commuinity.general.ufw:
+      logging" 'on'
+
+  - name: Allow SSH
+    communtiy.general.ufw:
+      rule: allow
+      port: 22
+      proto: tcp
+
+  - name: reload UFW
+    community.general.ufw:
+      state: reloaded
