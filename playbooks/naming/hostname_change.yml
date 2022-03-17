@@ -1,0 +1,21 @@
+---
+ - name: "Playbook to edit Hostname"
+   become: yes
+   hosts: testserver
+   tasks:
+
+     - name: Change /etc/hosts
+       lineinfile:
+         dest: /etc/hosts
+         line: "127.0.1.1 {{ ansible_hostname }}.local.cartyhome.com {{ ansible_hostname }}"
+         regexp: "^127.0.1.1"
+         state: present
+         backrefs: yes
+         
+     - name: Reboot server
+       command: shutdown -r now "Ansible Updated Triggered"
+       async: 0
+       poll: 0
+       ignore_errors: true
+       when:
+         reboot is defined
