@@ -14,3 +14,14 @@
         - /var/run/docker.sock:/varrun/docker.sock
         - /var/lib/docker/volumes:/var/lib/docker/volumes
       restart_policy: unless-stopped
+
+
+  - name: Add Portainer to UFW
+    communtiy.general.ufw:
+      rule: allow
+      port: 9001
+      proto: tcp
+
+  - name: Reload UFW
+    community.general.ufw:
+      state: reloaded
