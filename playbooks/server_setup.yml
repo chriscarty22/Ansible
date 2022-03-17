@@ -19,11 +19,11 @@
       state: enabled
 
   - name: Set Loggin
-    commuinity.general.ufw:
-      logging" 'on'
+    community.general.ufw:
+      logging: 'on'
 
   - name: Allow SSH
-    communtiy.general.ufw:
+    community.general.ufw:
       rule: allow
       port: 22
       proto: tcp
