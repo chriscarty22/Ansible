@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install Python3-apt
+    apt:
+      name:
+        - python3-apt
+
+  
+  - name: Add PLex DPG Key
+    apt_key:
+       url: https://downloads.plex.tv/plex-keys/PlexSign.key  
+       state: present
+
+  - name: Add Plex Repository to apt
+    apt_repository:
+      repo: deb https://downloads.plex.tv/repo/deb public main
+      state: present
+
+  - name: Update Repository Index
+    apt: 
+      update_cache: yes
+  
+  - name: Install Plex
+    apt:
+      name: 
+        - plexmediaserver
+
+

@@ -3,15 +3,15 @@
   become: true
   tasks:
   
-  - name: Create Data Directory
+  - name: Create Plex Directory
     file:
-      path: /mnt/data
+      path: /mnt/plex
       state: directory
 
   - name: Mount NFS Photo-Storage Drive
     ansible.posix.mount:
-      src: 10.50.30.3:/mnt/Data/data
-      path: /mnt/data
+      src: 10.50.30.3:/mnt/Data/plex
+      path: /mnt/plex
       opts: rw,sync,hard,intr
       fstype: nfs
       state: mounted

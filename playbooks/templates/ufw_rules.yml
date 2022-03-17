@@ -17,10 +17,10 @@
       port: 22
       proto: tcp
 
-  - name: Allow Portainer Aget
+  - name: Allow Plex
     community.general.ufw:
       rule: allow
-      port: 9001
+      port: 32400
       proto: tcp
 
   - name: Reload UFW
