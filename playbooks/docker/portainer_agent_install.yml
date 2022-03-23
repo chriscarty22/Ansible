@@ -3,21 +3,45 @@
 - hosts: all
   become: true
   tasks:
+ 
+    
+  - name: Install Dependecy Apps
+    apt:
+      name:
+        - python3-apt
+        - gpg
 
-  - name: Install Portainer Agent
-    community.docker.docker_container:
-      name: portainer_agent
-      image: portainer/agent:latest
-      ports:
-        - 9001/9001
-      volumes:
-        - /var/run/docker.sock:/varrun/docker.sock
-        - /var/lib/docker/volumes:/var/lib/docker/volumes
-      restart_policy: unless-stopped
+
+  - name: Add Docker DPG Key for Ubuntu
+    apt_key:
+       url: https://download.docker.com/linux/ubuntu/gpg
+       state: present
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Add Docker Repository to apt for Ubuntu
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu '{{ ansible_distribution_release }}' stable
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+
+
+  - name: Add Docker DPG Key for Debian
+    apt_key:
+       url: https://download.docker.com/linux/debian/gpg
+       state: present
+    when: ansible_distribution == "Debian"
+
+  - name: Add Docker Repository to apt
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ansible_distribution_release}} stable"
+      state: present
+      update_cache: true
+    when: ansible_distribution == "Debian"
 
 
   - name: Add Portainer to UFW
-    communtiy.general.ufw:
+    community.general.ufw:
       rule: allow
       port: 9001
       proto: tcp
@@ -25,3 +49,36 @@
   - name: Reload UFW
     community.general.ufw:
       state: reloaded
+
+  - name: Update Repo Index
+    apt:
+      update_cache: yes
+
+
+  - name: Install Docker Dependecy
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+        - docker-ce
+        - docker-compose 
+  
+  - name: Install Portainer Agent
+    command: docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent:latest
+       
+#  - name: Install Portainer Agent
+#    community.docker.docker_container:
+#      name: portainer_agent
+#      image: portainer/agent:latest
+#      ports:
+#        - 9001/9001
+#      volumes:
+#        - /var/run/docker.sock:/varrun/docker.sock
+#        - /var/lib/docker/volumes:/var/lib/docker/volumes
+#      restart_policy: unless-stopped
+
+
+
