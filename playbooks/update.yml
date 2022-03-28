@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  
+  - name: Update Repository Index
+    apt: 
+      update_cache: yes
+      force_apt_get: yes
+      cache_valid_time: 3600
+
+
+  - name: Upgrade All packages
+    apt:
+      upgrade: dist
+      force_apt_get: yes
+
+  - name: Check for Reboot
+    register: reboot_require_file
+    stat: path=/car/run/reboot-required get_md5=no
+
+
+  - name: Reboot Server
+    reboot:
+      msg: "reboot initiated by Ansible"
+      connect_timeout: 5
+      reboot_timeout: 300
+      pre_reboot_delay: 0
+      post_reboot_delay: 30
+      test_command: uptime
+    when: reboot_required_file.stat.exists
+
