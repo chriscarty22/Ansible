@@ -1,11 +1,2 @@
-[dns]
-dns.local.cartyhome.com
-
-[docker]
-portainer.local.carthome.com
-photo.localhome.com
-traefik.local.cartyhome.com
-
-[game_server]
-minecraft.local.cartyhome.com
-satisfactory.local.cartyhome.com
+[DNS]
+10.50.30.50
