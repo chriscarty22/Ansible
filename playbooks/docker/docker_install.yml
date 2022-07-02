@@ -8,22 +8,26 @@
       name:
         - python3-apt
 
-  
+  - name: Install gnupg-agent
+    apt:
+      name:
+        - gnupg
+
   - name: Add Docker DPG Key
     apt_key:
-       url: "https://download.docker.com/linux/{{ ansible_distribution }}/gpg"
+       url: https://download.docker.com/linux/debian/gpg
        state: present
 
   - name: Add Docker Repository to apt
     apt_repository:
-      repo: deb "https://download.docker.com/linux/{{ ansible_distribution }} {{ ansible_distribution_release }} stable"
+      repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
       state: present
 
 
 
   - name: Install Docker Dependecy
     apt:
-      name: 
+      name:
         - apt-transport-https
         - ca-certificates
         - curl
@@ -31,5 +35,7 @@
         - software-properties-common
         - docker-ce
         - docker-compose
+
+
 
 
