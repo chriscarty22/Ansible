@@ -25,7 +25,15 @@
       key: '{{ item }}'
     with_file:
       - ~/Ansible/ssh_keys/chris-macbook.pub
-      - ~/Ansible/ssh_keys/fedora-desktop.pub
+      - ~/Ansible/ssh_keys/manjaro.desktop.pub
+
+  - name: Remove Fedora SSh Key
+    authorized_key:
+      user: chris
+      state: remove
+      key: '{{ item }}'
+    with_file:
+      - ~/Ansible/ssh_keys/fedora_desktop.pub
 
 
   - name: Update Repository Index
