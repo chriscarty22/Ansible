@@ -7,7 +7,7 @@
     ansible.builtin.lineinfile:
       path: /etc/apt/apt.conf.d/02proxy
       line: Acquire::http { Proxy "http://10.50.30.2:3142"; };
-      create: yes
+      state: absent
     when: (ansible_distribution == "Debian") or (ansible_distribution == "Ubuntu")
 
 
@@ -15,6 +15,7 @@
     ansible.builtin.lineinfile:
       path: /etc/dnf/dnf.conf
       line: proxy=http://10.50.30.2:3142
+      state: absent
     when: (ansible_distribution == "Fedora")
 
 
