@@ -25,7 +25,7 @@
       key: '{{ item }}'
     with_file:
       - ~/Ansible/ssh_keys/chris-macbook.pub
-      - ~/Ansible/ssh_keys/manjaro.desktop.pub
+      - ~/Ansible/ssh_keys/manjaro-desktop.pub
 
   - name: Remove Fedora SSh Key
     authorized_key:
